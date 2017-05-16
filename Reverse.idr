@@ -21,7 +21,10 @@ proof_reverse1_append (x :: xs) ys =
 
 proof_reverse1_reverse1 : (xs : List a) -> xs = reverse1 (reverse1 xs)
 proof_reverse1_reverse1 [] = Refl
-proof_reverse1_reverse1 (x :: xs) = rewrite proof_reverse1_append (reverse1 xs) [x] in cong $ proof_reverse1_reverse1 xs
+proof_reverse1_reverse1 (x :: xs) =
+    rewrite proof_reverse1_append (reverse1 xs) [x] in
+    rewrite proof_reverse1_reverse1 xs in
+    Refl
 
 
 ---------------------------------------------------------------------
