@@ -60,7 +60,7 @@ fib_tail' (S n) a b = fib_tail' n (a + b) a
 fib_tail : Nat -> Nat
 fib_tail n = fib_tail' n 1 0
 
-fib_tail_correct' : (d : Nat) -> (u : Nat) -> fib_tail' d (fib (S u)) (fib u) = fib (d+u)
+fib_tail_correct' : (d : Nat) -> (u : Nat) -> fib_tail' d (fib (1+u)) (fib u) = fib (d+u)
 fib_tail_correct' Z u = Refl
 fib_tail_correct' (S d) u =
     rewrite fib_tail_correct' d (S u) in
