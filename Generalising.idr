@@ -1,6 +1,5 @@
 
 import Reverse
-%hide fib
 
 ---------------------------------------------------------------------
 -- SUM
@@ -48,28 +47,28 @@ sum_cont_correct = sum_cont_correct' id
 ---------------------------------------------------------------------
 -- FIB
 
-fib : Nat -> Nat
-fib Z = 0
-fib (S Z) = 1
-fib (S (S n)) = fib (S n) + fib n
+fibExp : Nat -> Nat
+fibExp Z = 0
+fibExp (S Z) = 1
+fibExp (S (S n)) = fibExp (S n) + fibExp n
 
-fib_tail' : Nat -> Nat -> Nat -> Nat
-fib_tail' Z a b = b
-fib_tail' (S n) a b = fib_tail' n (a + b) a
+fibLin' : Nat -> Nat -> Nat -> Nat
+fibLin' Z a b = b
+fibLin' (S n) a b = fibLin' n (a + b) a
 
-fib_tail : Nat -> Nat
-fib_tail n = fib_tail' n 1 0
+fibLin : Nat -> Nat
+fibLin n = fibLin' n 1 0
 
-fib_tail_correct' : (d : Nat) -> (u : Nat) -> fib_tail' d (fib (1+u)) (fib u) = fib (d+u)
-fib_tail_correct' Z u = Refl
-fib_tail_correct' (S d) u =
-    rewrite fib_tail_correct' d (S u) in
+fibLinInvariant : (d : Nat) -> (u : Nat) -> fibLin' d (fibExp (1+u)) (fibExp u) = fibExp (d+u)
+fibLinInvariant Z u = Refl
+fibLinInvariant (S d) u =
+    rewrite fibLinInvariant d (S u) in
     rewrite plusSuccRightSucc d u in
     Refl
 
-fib_tail_correct : (n : Nat) -> fib_tail n = fib n
-fib_tail_correct n =
-    rewrite fib_tail_correct' n 0 in
+fibEq : (n : Nat) -> fibLin n = fibExp n
+fibEq n =
+    rewrite fibLinInvariant n 0 in
     rewrite plusZeroRightNeutral n in
     Refl
 
